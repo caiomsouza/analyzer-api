@@ -11,7 +11,6 @@ https://www.youtube.com/watch?v=5ywZugTMzCg
 DsSwitching.html file modified by me. <BR>
 https://raw.githubusercontent.com/caiomsouza/analyzer-api/master/DsSwitching.html <BR>
 
-Place this file (DsSwitching.html) in your folder \server\pentaho-server\pentaho-solutions\system\analyzer-embed and open it with the link:<BR><BR>
+Place this file (DsSwitching.html) in your folder \server\pentaho-server\pentaho-solutions\system\analyzer-embed and open it with the link:<BR>
 
 http://localhost:8080/pentaho/content/analyzer-embed/resources/web/DsSwitching.html<BR>
-
