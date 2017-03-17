@@ -8,7 +8,10 @@
 # Embedding the Pentaho Platform
 https://www.youtube.com/watch?v=5ywZugTMzCg
 
-See the file
+DsSwitching.html file modified by me. <BR>
+https://raw.githubusercontent.com/caiomsouza/analyzer-api/master/DsSwitching.html <BR>
 
-http://localhost:8080/pentaho/content/analyzer-embed/resources/web/DsSwitching.html
+Place this file (DsSwitching.html) in your folder \server\pentaho-server\pentaho-solutions\system\analyzer-embed and open it with the link:<BR><BR>
+
+http://localhost:8080/pentaho/content/analyzer-embed/resources/web/DsSwitching.html<BR>
 
