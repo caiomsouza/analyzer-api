@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Data Source Switching</title>
+    <script type="text/javascript">
+      var steelWheelsSrc = "http://localhost:8080/pentaho/api/repos/xanalyzer/editor?catalog=SteelWheels&cube=SteelWheelsSales&showFieldList=false&showFieldLayout=false";
+      var sampleDataSrc = "http://localhost:8080/pentaho/api/repos/xanalyzer/editor?catalog=SampleData&cube=Quadrant%20Analysis&showFieldList=false&showFieldLayout=false";
+
+      var currentUrl = "";
+
+      window.onload = function() {
+        var ele = document.getElementById("dsSwitch");
+        ele.onchange = function() {
+          var url = ele.value;
+          var iframe = document.getElementById("iframe-analyzer");
+          currentUrl = iframe.src = url;
+
+          if (url == "") { 
+            iframe.style.display = "none";
+          } else {
+            iframe.style.display = "block";
+          }
+        }
+      }
+		  
+	  
+      window.onAnalyzerLoad = function(api) {
+        api.event.registerInitListener(function(e, cv) {
+          if (currentUrl == steelWheelsSrc) {
+            cv.api.report.setLayoutFields("rows", [ "[Markets].[Territory]", "[Markets].[Country]" ]);
+            cv.api.report.setLayoutFields("columns", [ "[Product].[Line]" ]);
+            cv.api.report.setLayoutFields("measures", [ "[Measures].[Quantity]", "[Measures].[Sales]" ]);
+			
+
+			// Clear cache Example 
+			var successCallback = function() {alert("Cache Cleared with Success - Caio!");}; var errorCallback = function() {alert("Error!");}; cv.api.operation.clearCache(successCallback, errorCallback, true);
+			
+
+            // Filters
+            cv.api.report.setFilters("[Time].[Years]",{"operator":"EQUAL","parameterName":null,"preset":"-1,0,1","ordinal":"1","members":[-1,0,1],"formula":true});
+            cv.api.operation.refreshReport();
+
+            cv.api.report.removeFilters("[Time].[Years]",{"operator":"EQUAL","parameterName":null,"preset":"-1,0,1","ordinal":"1","members":[-1,0,1],"formula":true});
+
+            // Numeric Filter
+            cv.api.report.setNumericFilters("[Markets].[Territory]", [{"operator":"TOP","members":[],"parameterName":null,"preset":null,"count":"10","formula":"[Measures].[Quantity]","op1":null,"op2":null},{"operator":"GREATER_THAN","members":[],"parameterName":null,"preset":null,"count":null,"formula":"[Measures].[Sales]","op1":"2"},{"operator":"GREATER_THAN_EQUAL","members":[],"parameterName":null,"preset":null,"count":null,"formula":"[Measures].[Quantity]","op1":"33"},{"operator":"IS_NOT_EMPTY","members":[],"parameterName":null,"preset":null,"count":null,"formula":"[Measures].[Sales]"},{"operator":"BETWEEN","members":[],"parameterName":null,"preset":null,"count":null,"formula":"[Measures].[Quantity]","op1":"2","op2":"58888"}]);
+            cv.api.operation.refreshReport();
+			
+			
+		
+			
+			
+			
+          } else {
+            cv.api.report.setLayoutFields("rows", [ "[Region].[Region]", "[Positions].[Positions]" ]);
+            cv.api.report.setLayoutFields("measures", [ "[Measures].[Budget]" ]);
+
+            cv.api.report.setNumericFilters("[Positions].[Positions]", [{"count":"10","formula":"[Measures].[Budget]","operator":"TOP"},{"operator":"GREATER_THAN","formula":"[Measures].[Budget]","op1":"0"}]);
+            cv.api.report.setVizId("ccc_sunburst");
+            cv.api.operation.refreshReport();
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div style="background-color: #0085b0; color: #FFF; font-size: 40px; margin-bottom: 20px; padding: 15px;">
+      Analyzer Demo
+    </div>
+    <div>
+    <span>Datasource: </span>
+    <select id="dsSwitch">
+      <option></option>
+      <option value="http://localhost:8080/pentaho/api/repos/xanalyzer/editor?catalog=SteelWheels&cube=SteelWheelsSales&showFieldList=false&showFieldLayout=false">Steel Wheels</option>
+      <option value="http://localhost:8080/pentaho/api/repos/xanalyzer/editor?catalog=SampleData&cube=Quadrant%20Analysis&showFieldList=false&showFieldLayout=false">Sample Data</option>
+    </select>
+    
+    </div>
+    <iframe style="display: none" id="iframe-analyzer" src="" width="1300" height="750"></iframe>
+  </body>
+</html>
