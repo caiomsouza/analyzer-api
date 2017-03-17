@@ -14,3 +14,12 @@ https://raw.githubusercontent.com/caiomsouza/analyzer-api/master/DsSwitching.htm
 Place this file (DsSwitching.html) in your folder \server\pentaho-server\pentaho-solutions\system\analyzer-embed and open it with the link:<BR>
 
 http://localhost:8080/pentaho/content/analyzer-embed/resources/web/DsSwitching.html<BR>
+
+# Configuring Custom Analyzer Actions
+https://help.pentaho.com/Documentation/7.0/0R0/080/0B0
+
+# Analyzer External JavaScript APIs
+https://help.pentaho.com/Documentation/7.0/0R0/070/030
+
+# Real example of a client extending Analyzer API
+https://www.youtube.com/watch?v=ojkKE8s1--A
